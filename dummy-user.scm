@@ -78,14 +78,22 @@
 ;;; --  PUBLIC INTERFACE  ----------------------------------------------
 
 (define (make-dummy-user strings)
-  (let* ((my-outq (list->queue strings))
-         (logq (make-queue))
-         (ext-input (make-input my-outq logq))
-         (ext-output (make-output logq)))
+  (let* ((my-outq #f)
+         (logq #f)
+         (ext-input #f)
+         (ext-output #f)
+         (setup
+           (lambda ()
+             (set! my-outq (list->queue strings))
+             (set! logq (make-queue))
+             (set! ext-input (make-input my-outq logq))
+             (set! ext-output (make-output logq)))))
+    (setup)
     (lambda (cmd)
       (case cmd
         ((input) ext-input)
         ((output) ext-output)
+        ((reset) (setup))
         ((dump) (queue->list logq))))))
 
 
