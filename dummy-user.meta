@@ -1,0 +1,5 @@
+((license "BSD")
+ (category testing)
+ (test-depends test)   
+ (author "Matt Gushee")
+ (synopsis "Simulates user input for testing interactive command-line applications."))
