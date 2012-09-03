@@ -37,10 +37,12 @@
   (let* ((chars (make-queue))
          (done?
            (lambda ()
+             ;(print-errors "done?")
              (and (queue-empty? chars)
                   (queue-empty? outq))))
          (next-string
            (lambda ()
+             ;(print-errors "next-string")
              (if (queue-empty? outq)
                #f
                (let ((next (queue-remove! outq)))
@@ -48,21 +50,27 @@
                  next))))
          (set-chars
            (lambda (s)
+             ;(print-errors "set-chars")
              (when s
                (for-each
                  (lambda (c) (queue-add! chars c))
                  (string->list s)))
-             queue-add! chars #\newline))   ; should it be newline or EOF?
+             (queue-add! chars #\newline)))   ; should it be newline or EOF?
+             ;(queue-add! chars #!eof)))
          (ext-char-reader
            (lambda ()
+             ;(print-errors "ext-char-reader")
              (if (done?)
                #!eof
                (begin
+                 ;(print-errors "not done")
                  (when (queue-empty? chars)
+                   ;(print-errors "char q empty")
                    (set-chars (next-string)))
                  (queue-remove! chars)))))
          (ext-in-ready?
            (lambda ()
+             ;(print-errors "ext-in-ready?")
              (and chars
                   (not (queue-empty? chars))
                   (not (queue-empty? outq)))))
@@ -96,7 +104,7 @@
         ((output) ext-output)
         ((reset) (setup))
         ((dump) (queue->list logq))))))
-
+ 
 
 (define (with-dummy-user user thunk #!optional (return-result #f))
   (let ((return-result
