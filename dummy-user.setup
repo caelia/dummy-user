@@ -1,0 +1,5 @@
+(compile -O -s dummy-user.scm)
+(install-extension
+  'dummy-user
+  "dummy-user.so"
+  '((version "0.1")))
