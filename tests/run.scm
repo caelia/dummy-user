@@ -13,7 +13,21 @@
     (display "Thanks. Bye.")
     (queue->list inputs)))
 
-(test '((program: "abc ") (user: "123") (program: "def ") (user: "456") (program: "Thanks. Bye."))
+(test "test 1" '((program: "abc ") (user: "123") (program: "def ") (user: "456") (program: "Thanks. Bye."))
       (with-dummy-user user test-app))
+
+(user 'reset)
+
+(test "test 2" '((program: "abc ") (user: "123") (program: "def ") (user: "456") (program: "Thanks. Bye."))
+      (with-dummy-user user test-app))
+
+(user 'reset)
+
+(define test-result #f)
+(test "test 3" '("123" "456")
+      (with-dummy-user
+        user
+        (lambda () (set! test-result (test-app)))
+        (lambda () test-result)))
 
 (test-exit)
