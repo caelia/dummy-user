@@ -1,0 +1,5 @@
+dummy-user egg for Chicken scheme
+=================================
+
+This is a Chicken scheme extension that simulates user input, to aid in testing
+interactive programs.
