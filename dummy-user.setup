@@ -1,5 +1,6 @@
-(compile -O -s dummy-user.scm)
+(compile -O -s dummy-user.scm -j dummy-user)
+(compile -O -s dummy-user.import.scm)
 (install-extension
   'dummy-user
-  "dummy-user.so"
+  '("dummy-user.so" "dummy-user.import.so")
   '((version "0.1")))

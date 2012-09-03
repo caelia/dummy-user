@@ -28,7 +28,7 @@
 (define (make-output logq)
   (let* ((ext-writer
            (lambda (s)
-             (queue-add! logq (cons program: s))))
+             (queue-add! logq (list program: s))))
          (ext-close-out
            (lambda () #f)))
     (make-output-port ext-writer ext-close-out)))
@@ -44,7 +44,7 @@
              (if (queue-empty? outq)
                #f
                (let ((next (queue-remove! outq)))
-                 (queue-add! logq (cons user: next))
+                 (queue-add! logq (list user: next))
                  next))))
          (set-chars
            (lambda (s)
