@@ -52,7 +52,7 @@
                (for-each
                  (lambda (c) (queue-add! chars c))
                  (string->list s)))
-             queue-add! chars #!eof))
+             queue-add! chars #\newline))   ; should it be newline or EOF?
          (ext-char-reader
            (lambda ()
              (if (done?)
@@ -87,7 +87,8 @@
              (set! my-outq (list->queue strings))
              (set! logq (make-queue))
              (set! ext-input (make-input my-outq logq))
-             (set! ext-output (make-output logq)))))
+             (set! ext-output (make-output logq))
+             '())))
     (setup)
     (lambda (cmd)
       (case cmd
