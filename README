@@ -2,4 +2,6 @@ dummy-user egg for Chicken scheme
 =================================
 
 This is a Chicken scheme extension that simulates user input, to aid in testing
-interactive programs.
+interactive programs. For complete documentation, please see:
+
+http://wiki.call-cc.org/eggref/4/dummy-user
